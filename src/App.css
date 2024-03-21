@@ -17,3 +17,21 @@ ul {
   padding: 2px;
   list-style-type: none;
 }
+
+.task{
+
+}
+
+.task-done{
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.btn-active {
+  background-color: mistyrose;
+}
+
+.error {
+  border: red 2px solid;
+}
+

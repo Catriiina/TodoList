@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {TaskType, TodoList} from "./TodoList";
-import { v1 } from 'uuid'
+import {v1} from 'uuid'
 
 export type FilterValuesType = "all" | "active" | "completed"
 
@@ -19,17 +19,22 @@ function App() {
         setTasks(updatedState)
     }
 
-    const addTask =(title:string)=>{
-        const newTask: TaskType ={
-            id:  v1(),
+    const addTask = (title: string) => {
+        const newTask: TaskType = {
+            id: v1(),
             title,
             isDone: false
         }
-        const updatedState = [newTask,...tasks]
+        const updatedState = [newTask, ...tasks]
         setTasks(updatedState)
     }
 
-    const changeTodoListFilter = (filter: FilterValuesType) =>{
+    const changeTaskStatus = (taskId: string, newIsDoneValue:boolean) => {
+        const updatedState = tasks.map(t => t.id === taskId ? {...t, isDone: newIsDoneValue} : t)
+        setTasks(updatedState)
+    }
+
+    const changeTodoListFilter = (filter: FilterValuesType) => {
         setFilter(filter)
     }
 
@@ -50,8 +55,10 @@ function App() {
         <div className="App">
             <TodoList title={TodoListTitle}
                       tasks={filteredTasks}
+                      filter={filter}
                       addTask={addTask}
                       removeTask={removeTask}
+                      changeTaskStatus={changeTaskStatus}
                       changeTodoListFilter={changeTodoListFilter}
             />
         </div>
