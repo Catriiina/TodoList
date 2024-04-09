@@ -1,3 +1,5 @@
+
+
 .App {
   padding: 30px;
   display: flex;
@@ -35,3 +37,9 @@ ul {
   border: red 2px solid;
 }
 
+.background-container {
+  background-image: url('./assets/pink-marble-background_621302-3332.jpg.avif');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
