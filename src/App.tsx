@@ -3,16 +3,17 @@ import './App.css';
 import {TaskType, TodoList} from "./TodoList";
 import {v1} from 'uuid'
 import backgroundImg from './assets/pink-marble-background_621302-3332.jpg.avif'
+import {AddItemForm} from "./Copmonents/AddItemForm";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
-type TodolistType = {
+export type TodolistType = {
 	id: string;
 	title: string;
 	filter: FilterValuesType;
 };
 
-function App() {
+	function App() {
 
 	let todoListID1 = v1()
 	let todoListID2 = v1()
@@ -70,9 +71,38 @@ function App() {
 		setTodoLists(newTodoLists)
 	}
 
+	const removeTodolist = (todoListId: string) => {
+		const newTodoLists = todoLists.filter(tl => tl.id !== todoListId)
+		setTodoLists(newTodoLists)
+
+		delete tasks[todoListId] // удалим таски для тудулиста из стейта где мы храним таски
+		setTasks({ ...tasks })
+	}
+
+	const addTodolist = (title: string) => {
+		const todoListId = v1()
+		const newTodolist: TodolistType = { id: todoListId, title: title, filter: 'all' }
+		setTodoLists([newTodolist, ...todoLists])
+		setTasks({ ...tasks, [todoListId]: [] })
+	}
+
+	const updateTask = (todoListId: string, taskId: string, title: string) => {
+			const newTodoListTasks = {
+				...tasks,
+				[todoListId]: tasks[todoListId].map(t => (t.id === taskId ? { ...t, title } : t)),
+			}
+			setTasks(newTodoListTasks)
+	}
+
+	const updateTodoList = (todoListId: string, title: string) => {
+			const newTodoLists = todoLists.map(tl => (tl.id === todoListId ? { ...tl, title } : tl))
+			setTodoLists(newTodoLists)
+	}
+
 	return (
 		<div className="App">
 			<div className="background" style={{ backgroundImage: `url(${backgroundImg})` }}></div>
+			<AddItemForm addItem={addTodolist} />
 			{todoLists.map(tl => {
 				const allTodolistTasks = tasks[tl.id]
 				let tasksForTodolist = allTodolistTasks
@@ -96,6 +126,9 @@ function App() {
 						addTask={addTask}
 						changeTaskStatus={changeTaskStatus}
 						filter={tl.filter}
+						removeTodolist={removeTodolist}
+						updateTask={updateTask}
+						updateTodoList={updateTodoList}
 					/>
 				);
 			})}
