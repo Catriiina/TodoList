@@ -6,7 +6,7 @@ type ButtonPropsType = {
     isDisabled?: boolean
     classes?: string
 }
-export const Button = ({title,isDisabled,classes, onClick}: ButtonPropsType) => {
+export const MyButton = ({title,isDisabled,classes, onClick}: ButtonPropsType) => {
     return (
         <button className={classes} disabled={isDisabled} onClick={onClick}>
             {title}

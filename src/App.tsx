@@ -1,9 +1,20 @@
 import React, {useState} from 'react';
-import './App.css';
-import {TaskType, TodoList} from "./TodoList";
+import {TaskType, TodoList} from "./TodoList/TodoList";
 import {v1} from 'uuid'
-import backgroundImg from './assets/pink-marble-background_621302-3332.jpg.avif'
 import {AddItemForm} from "./Copmonents/AddItemForm";
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container'
+import Paper from '@mui/material/Paper';
+import {MenuButton} from "./Copmonents/MenuButton";
+import Switch from '@mui/material/Switch'
+import CssBaseline from '@mui/material/CssBaseline'
+
+type ThemeMode = 'dark' | 'light'
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -14,6 +25,17 @@ export type TodolistType = {
 };
 
 	function App() {
+
+		const [themeMode, setThemeMode] = useState<ThemeMode>('light')
+
+		const theme = createTheme({
+			palette: {
+				mode: themeMode === 'light' ? 'light' : 'dark',
+				primary: {
+					main: '#1e90ff',
+				},
+			},
+		})
 
 	let todoListID1 = v1()
 	let todoListID2 = v1()
@@ -34,6 +56,9 @@ export type TodolistType = {
 			{ id: v1(), title: 'GraphQL', isDone: false },
 		],
 	})
+	const changeModeHandler = () => {
+			setThemeMode(themeMode == 'light' ? 'dark' : 'light')
+	}
 
 	const removeTask = (taskId: string, todoListId: string) => {
 		const newTodolistTasks = {
@@ -100,9 +125,30 @@ export type TodolistType = {
 	}
 
 	return (
-		<div className="App">
-			<div className="background" style={{ backgroundImage: `url(${backgroundImg})` }}></div>
+		<div
+			style={{ backgroundColor: theme.palette.mode === 'dark' ? '#303030' : '#ffffff',
+				color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000' }}
+		>
+			<CssBaseline/>
+			<ThemeProvider theme={theme}>
+			<AppBar position="static" sx={{marginBottom: '30px'}}>
+				<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+					<IconButton color="inherit">
+						<MenuIcon />
+					</IconButton>
+					<div>
+						<MenuButton >Login</MenuButton>
+						<MenuButton >Logout</MenuButton>
+						<MenuButton >Faq</MenuButton>
+						<Switch color={'default'} onChange={changeModeHandler} />
+					</div>
+				</Toolbar>
+			</AppBar>
+			<Container fixed>
+				<Grid container sx={{marginBottom: '30px'}}>
 			<AddItemForm addItem={addTodolist} />
+				</Grid>
+				<Grid container spacing={8}>
 			{todoLists.map(tl => {
 				const allTodolistTasks = tasks[tl.id]
 				let tasksForTodolist = allTodolistTasks
@@ -116,6 +162,8 @@ export type TodolistType = {
 				}
 
 				return (
+					<Grid >
+						<Paper sx={{ padding: '20px' }}>
 					<TodoList
 						key={tl.id}
 						title={tl.title}
@@ -130,8 +178,13 @@ export type TodolistType = {
 						updateTask={updateTask}
 						updateTodoList={updateTodoList}
 					/>
+						</Paper>
+					</Grid>
 				);
 			})}
+				</Grid>
+			</Container>
+			</ThemeProvider>
 		</div>
 	);
 }
