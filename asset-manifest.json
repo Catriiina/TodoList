@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Catriiina/TodoList.git/static/css/main.e6c13ad2.css",
+    "main.js": "/Catriiina/TodoList.git/static/js/main.2e7ddc0c.js",
+    "index.html": "/Catriiina/TodoList.git/index.html",
+    "main.e6c13ad2.css.map": "/Catriiina/TodoList.git/static/css/main.e6c13ad2.css.map",
+    "main.2e7ddc0c.js.map": "/Catriiina/TodoList.git/static/js/main.2e7ddc0c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.2e7ddc0c.js"
+  ]
+}
