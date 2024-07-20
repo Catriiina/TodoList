@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TaskType, TodoList} from "./TodoList/TodoList";
+import {TaskStateType, TodoList} from "./TodoList/TodoList";
 import {v1} from 'uuid'
 import {AddItemForm} from "./Copmonents/AddItemForm";
 import AppBar from '@mui/material/AppBar'
@@ -45,7 +45,7 @@ export type TodolistType = {
 		{ id: todoListID2, title: 'What to learn:', filter: 'all' },
 	]);
 
-	const [tasks, setTasks] = useState<{[key: string]: TaskType[]}>({
+	const [tasks, setTasks] = useState<{[key: string]: TaskStateType[]}>({
 		[todoListID1]: [
 			{ id: v1(), title: "Атлант расправил плечи(том 3)", isDone: false },
 			{ id: v1(), title: "Уроки химии", isDone: true },

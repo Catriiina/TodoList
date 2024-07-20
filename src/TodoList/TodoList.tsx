@@ -14,7 +14,7 @@ import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
 type TodoListPropsType = {
     title: string
     todoListId: string
-    tasks: TaskType[]
+    tasks: TaskStateType[]
     filter: FilterValuesType
     removeTask: (taskId: string, todoListId: string) => void
     changeTaskStatus: (taskId: string, taskStatus: boolean, todoListId: string) => void
@@ -24,11 +24,15 @@ type TodoListPropsType = {
     updateTask: (todoListId: string, taskId: string, title: string) => void
     updateTodoList: (todoListId: string, title: string) => void
 }
-export type TaskType = {
+export type TaskStateType = {
     id: string
     title: string
     isDone: boolean
 }
+
+export type TasksStateType = {
+    [key: string]: TaskStateType[];
+};
 
 export const TodoList = ({
                              title, todoListId, tasks,
