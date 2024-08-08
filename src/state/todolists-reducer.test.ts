@@ -12,8 +12,8 @@ let todoListID1 : string
 let todoListID2: string
 let startState: TodolistType[]
 beforeEach( ()=>{
-    let todoListID1 = v1()
-    let todoListID2 = v1()
+    todoListID1 = v1()
+    todoListID2 = v1()
     startState = [
         { id: todoListID1, title: 'List of books:', filter: 'all' },
         { id: todoListID2, title: 'What to learn:', filter: 'all' },
